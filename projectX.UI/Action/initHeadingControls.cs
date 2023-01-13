@@ -14,21 +14,26 @@ namespace ProjectX.UI
         /// </summary>
         public void initbtn()
         {
-            int buttonNum = 5;
-            //初始化tabpage1的compositebutton
-            CompositeButton[] compositeButtons = new CompositeButton[buttonNum];
-            string[] cpbtnTEXT = { "打开工作空间", "打开数据库型工作空间", "打开数据源", "新建地图", "数据导入" };
-            //依次绑定事件点击方法,只绑定了一个
-            Action<object, System.EventArgs> action = OpenFilebtnOnclick;
-            buttonDelegate = action.GetInvocationList();
-            for (int i = 0; i < buttonNum; i++)
+            foreach (ToolStripButton button in this.toolStripTop.Items)
             {
-                compositeButtons[i] = new CompositeButton();
-                compositeButtons[i].ButtonText = cpbtnTEXT[i];
-                compositeButtons[i].Tag = i + 1;
-                compositeButtons[i].Click += ButtonOnclick;
-                this.headingLayoutPanel1.Controls.Add(compositeButtons[i]);
+                button.Click += toolStripBtn_Click;
             }
+            this.ButtonOpenWorkspace.Click += OpenFilebtnOnclick;
+            //int buttonNum = 5;
+            ////初始化tabpage1的compositebutton
+            //CompositeButton[] compositeButtons = new CompositeButton[buttonNum];
+            //string[] cpbtnTEXT = { "打开工作空间", "打开数据库型工作空间", "打开数据源", "新建地图", "数据导入" };
+            ////依次绑定事件点击方法,只绑定了一个
+            //Action<object, System.EventArgs> action = OpenFilebtnOnclick;
+            //buttonDelegate = action.GetInvocationList();
+            //for (int i = 0; i < buttonNum; i++)
+            //{
+            //    compositeButtons[i] = new CompositeButton();
+            //    compositeButtons[i].ButtonText = cpbtnTEXT[i];
+            //    compositeButtons[i].Tag = i + 1;
+            //    compositeButtons[i].Click += ButtonOnclick;
+            //    this.headingLayoutPanel1.Controls.Add(compositeButtons[i]);
+            //}
         }
         /// <summary>
         /// 按钮的点击事件
@@ -44,7 +49,6 @@ namespace ProjectX.UI
             /*执行*/
             method(sender, e);
         }
-
         /// <summary>
         /// 点击打开工作空间
         /// </summary>
@@ -54,12 +58,17 @@ namespace ProjectX.UI
         {
             this.workspaceManage.OpenWorkspace();
         }
-
+        /// <summary>
+        /// 顶部按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void toolStripBtn_Click(object sender, EventArgs e)
         {
             ToolStripButton button = (ToolStripButton)sender;
             mapModeChange?.Invoke(button.Tag.ToString());
         }
+
     }
 
 }

@@ -28,8 +28,6 @@ namespace projectX.UI.Controls
             this.SizeMode = TabSizeMode.Fixed;
             this.MouseDown += UserTabPage_MouseDown;
             this.Dock = DockStyle.Fill;
-            this.TabPages.Add("1");
-            this.TabPages.Add("2");
         }
 
         /// <summary>

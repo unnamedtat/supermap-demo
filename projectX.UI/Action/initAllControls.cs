@@ -42,7 +42,7 @@ namespace ProjectX.UI
                 RefreshEagZoomControls(null);
                 workspaceManage.PropertyChanged += this.WorkspaceChanged;
                 initbtn();
-                this.mapModeChange += HeadingControl_mapModeChange;
+                this.mapModeChange += HeadingControl_mapModeChange;//绑定顶部按钮点击事件
                 this.tssLabelCoordinate.Alignment = ToolStripItemAlignment.Right;//状态栏
                 //绑定工作空间树的初始化事件
                 workspaceControl.WorkspaceTree.NodeMouseDoubleClick += new TreeNodeMouseClickEventHandler(WorkspaceTree_NodeMouseDoubleClick);
@@ -50,8 +50,8 @@ namespace ProjectX.UI
                 workspaceControl.WorkspaceTree.BeforeNodeContextMenuStripShow += new BeforeNodeContextMenuStripShowEventHandler(WorkspaceTree_BeforeNodeContextMenuStripShow);
                 this.statusStrip1.Items[1].Click += new System.EventHandler(this.UpDownButton_Click);
                 this.statusStrip1.Items[2].Click += new System.EventHandler(this.UpDownButton_Click);
-
-
+                InitiAttributeMange();
+                initWorkspaceManageForm();
             }
             catch (Exception ex)
             {
@@ -59,15 +59,33 @@ namespace ProjectX.UI
             }
         }
 
+
+
+        /// <summary>
+        /// tapage选择卡更新方法
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UtpMap_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MapControl tempmapControl = (MapControl)utpMap.SelectedTab.Controls[0];
-            activeMapControl = tempmapControl;
-            RefreshMainMapControl(activeMapControl.Map.Name);
-            RefreshEagZoomControls(activeMapControl.Map.Name);
-            ChangeMap();
+            if (utpMap.SelectedTab != null) 
+            {
+                MapControl tempmapControl = (MapControl)utpMap.SelectedTab.Controls[0];
+                activeMapControl = tempmapControl;
+                RefreshMainMapControl(activeMapControl.Map.Name);
+                RefreshEagZoomControls(activeMapControl.Map.Name);
+                ChangeMap();
+            }
+            else
+            {
+                //默认打开第一张地图
+                AddMapAndTab();
+                RefreshMainMapControl(null);
+                RefreshEagZoomControls(null);
+                ChangeMap();
+                utpMap.Selected += UtpMap_SelectedIndexChanged;
+            }
         }
-
 
         /// <summary>
         /// 绑定顶部按钮点击事件
@@ -77,11 +95,14 @@ namespace ProjectX.UI
         {
             switch (Tag)
             {
-                case "5": this.activeMapControl.Action = SuperMap.UI.Action.ZoomIn; break;
-                case "6": this.activeMapControl.Action = SuperMap.UI.Action.ZoomOut; break;
-                case "7": this.activeMapControl.Action = SuperMap.UI.Action.ZoomFree; break;
-                case "8": this.activeMapControl.Map.ViewEntire(); break;
-                case "9": this.activeMapControl.Action = SuperMap.UI.Action.Pan; break;
+                case "3": this.activeMapControl.Action = SuperMap.UI.Action.Select;
+                    activeMapControl.SelectionMode = SuperMap.UI.SelectionMode.Intersect; break;
+                case "4": this.activeMapControl.Action = SuperMap.UI.Action.ZoomIn; break;
+                case "5": this.activeMapControl.Action = SuperMap.UI.Action.ZoomOut; break;
+                case "8": this.activeMapControl.Map.Refresh(); break;
+                case "7": this.activeMapControl.Map.ViewEntire(); break;
+                case "6": this.activeMapControl.Action = SuperMap.UI.Action.Pan; break;
+                case "9": this.activeMapControl.Action = SuperMap.UI.Action.ZoomFree; break;
                 default: break;
             }
         }

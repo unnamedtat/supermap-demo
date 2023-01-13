@@ -13,6 +13,7 @@ namespace ProjectX.BLL
         Workspace workspace { get; }
         void SetWorkspace(String WorkspaceInfo);//程序更换工作空间
         void OpenWorkspace();//用户打开工作空间
+        bool CreateWorkspace(String WorkspaceInfo, WorkspaceType workspaceType);
         void CreatMap();
     }
 }

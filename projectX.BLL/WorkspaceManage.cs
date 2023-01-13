@@ -1,6 +1,7 @@
 ﻿using SuperMap.Data;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace ProjectX.BLL
@@ -70,6 +71,33 @@ namespace ProjectX.BLL
         /// </summary>
         public void CreatMap()
         {
+
+
+        }
+        /// <summary>
+        /// 创建新工作空间
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        public bool CreateWorkspace(String WorkspaceInfo, WorkspaceType workspaceType)
+        {
+            Boolean isSucceed=false;
+            String result = String.Empty;
+            try
+            {
+                workspace.Close();
+                WorkspaceConnectionInfo m_connectionInfo = new WorkspaceConnectionInfo(WorkspaceInfo);
+
+                isSucceed = workspace.Create(m_connectionInfo);
+                //若创建成功，设定工作空间
+                if (isSucceed == true) SetWorkspace(WorkspaceInfo);
+
+
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex.Message);
+            }
+            return isSucceed;
         }
     }
 }

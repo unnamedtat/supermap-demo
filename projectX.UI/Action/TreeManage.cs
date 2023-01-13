@@ -117,7 +117,11 @@ namespace ProjectX.UI
             catch
             { }
         }
-
+        /// <summary>
+        /// 查看地图是否重复加入
+        /// </summary>
+        /// <param name="mapName"></param>
+        /// <returns></returns>
         private TabPage checkMapIsInUtp(string mapName)
         {
             foreach (TabPage tabpage in utpMap.TabPages)
@@ -128,7 +132,6 @@ namespace ProjectX.UI
             return null;
         }
 
-
         /// <summary>
         /// 工作空间树右击选择添加地图或数据
         /// </summary>
@@ -138,8 +141,6 @@ namespace ProjectX.UI
         {
             AddData();
         }
-
-
 
         /// <summary>
         /// 工作空间树右键菜单弹出前事件

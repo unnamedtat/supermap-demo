@@ -62,10 +62,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action\AttibuteManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Action\EagleEyeZoom.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Action\initHeadingControls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Action\initWorksapeManageF.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Action\RefreshControls.cs">
@@ -92,11 +98,29 @@
     <Compile Include="Action\initAllControls.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Controls\ImageButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ImageButton.Designer.cs">
+      <DependentUpon>ImageButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UserTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\UserTabPage.Designer.cs">
       <DependentUpon>UserTabPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AttributeTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AttributeTable.Designer.cs">
+      <DependentUpon>AttributeTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CreateNewWorkspace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CreateNewWorkspace.Designer.cs">
+      <DependentUpon>CreateNewWorkspace.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -111,6 +135,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\HeadingControl.resx">
       <DependentUpon>HeadingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AttributeTable.resx">
+      <DependentUpon>AttributeTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CreateNewWorkspace.resx">
+      <DependentUpon>CreateNewWorkspace.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -160,6 +190,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MainForm.ico" />
+    <None Include="Resources\FileMange\添加数据.png" />
+    <None Include="Resources\FileMange\布局.png" />
+    <None Include="Resources\FileMange\场景.png" />
+    <None Include="Resources\FileMange\地图.png" />
+    <None Include="Resources\FileMange\属性表.png" />
+    <None Include="Resources\FileMange\地图属性.png" />
+    <None Include="Resources\FileMange\新建数据.png" />
+    <None Include="Resources\FileMange\数据源.png" />
+    <None Include="Resources\FileMange\另存为.png" />
+    <None Include="Resources\FileMange\打开.png" />
+    <None Include="Resources\FileMange\保存.png" />
+    <None Include="Resources\MapBrowse\自由缩放.png" />
+    <None Include="Resources\MapBrowse\刷新.png" />
     <None Include="Resources\MapBrowse\减.png" />
     <None Include="Resources\MapBrowse\加.png" />
     <None Include="Resources\MapBrowse\新建.png" />

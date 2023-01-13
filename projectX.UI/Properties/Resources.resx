@@ -118,26 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="缩小" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MapBrowse\缩小.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="放大" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MapBrowse\放大.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="拖动" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MapBrowse\拖动.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="全屏" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MapBrowse\全屏.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="保存" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MapBrowse\保存.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="指针" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MapBrowse\指针.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MainForm" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="缩小" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MapBrowse\缩小.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="地图" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FileMange\地图.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="新建" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MapBrowse\新建.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -145,7 +133,58 @@
   <data name="减" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MapBrowse\减.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="地图属性" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FileMange\地图属性.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="拖动" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MapBrowse\拖动.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="属性表" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FileMange\属性表.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MainForm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="打开" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FileMange\打开.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="布局" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FileMange\布局.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="刷新" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MapBrowse\刷新.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="放大" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MapBrowse\放大.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="场景" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FileMange\场景.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="自由缩放" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MapBrowse\自由缩放.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="新建数据" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FileMange\新建数据.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="保存" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MapBrowse\保存.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="另存为" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FileMange\另存为.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="全屏" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MapBrowse\全屏.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="加" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MapBrowse\加.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="数据源" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FileMange\数据源.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="保存1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FileMange\保存.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="添加数据" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FileMange\添加数据.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
