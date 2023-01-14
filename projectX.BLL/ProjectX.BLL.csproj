@@ -34,6 +34,9 @@
     <Reference Include="SuperMap.Data">
       <HintPath>..\..\..\..\Program Files (x86)\supermap-iobjectsdotnet-11.0.0-21114-95737-all\Bin_x64\SuperMap.Data.dll</HintPath>
     </Reference>
+    <Reference Include="SuperMap.Mapping">
+      <HintPath>..\..\..\..\Program Files (x86)\supermap-iobjectsdotnet-11.0.0-21114-95737-all\Bin_x64\SuperMap.Mapping.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />

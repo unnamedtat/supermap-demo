@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using ProjectX.UI.Forms;
 
 namespace ProjectX.UI
 {
@@ -13,6 +14,8 @@ namespace ProjectX.UI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //启动界面
+            //Application.Run(new WelcomeForm());
             Application.Run(new MainForm());
         }
     }

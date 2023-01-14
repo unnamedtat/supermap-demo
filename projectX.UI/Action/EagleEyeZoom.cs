@@ -1,4 +1,10 @@
-﻿using ProjectX.BLL;
+﻿///////////////////////////////////////////////////////////////////////////////////////////////////
+//------------------------------鹰眼图等----------------------------
+//
+// 此部分用于实现鹰眼图、放大镜和与主地图相关的一些的基本操作功能
+//------------------------------------------------------------------
+///////////////////////////////////////////////////////////////////////////////////////////////////
+using ProjectX.BLL;
 using ProjectX.UI.Controls;
 using SuperMap.Data;
 using SuperMap.Mapping;
@@ -16,12 +22,26 @@ namespace ProjectX.UI
         private Point pointBefore;//指示中心
         private Boolean isMoveEngleRect;//是否移动指示范围
 
-
         private Int32 ScaleIndex;//放大尺度，默认为3，最大为10
+
+        /// <summary>
+        /// 初始化移动显示坐标信息
+        /// </summary>
+        private void initCoordinateInfo()
+        {
+            this.activeMapControl.MouseMove += new MouseEventHandler(UpdateCoordinateInfo);
+        }
+
+        private void UpdateCoordinateInfo(object sender, MouseEventArgs e)
+        {
+            Point2D point = this.activeMapControl.Map.PixelToMap(e.Location);//e.Location 现在屏幕坐标，换算成地图坐标
+            this.tssLabelCoordinate.Text = "坐标： X= " + point.X + " Y= " + point.Y;
+        }
+
         /// <summary>
         /// 初始化鹰眼图放大镜相关的事件
         /// </summary>
-        public void initEagleZoomEvent()
+        private void initEagleZoomEvent()
         {
             mapControlEagleEye.MouseMove += new MouseEventHandler(EagleEyeMapMouseMoveHandler);
             mapControlEagleEye.MouseDown += new MouseEventHandler(EagleEyeMapMouseDownHandler);

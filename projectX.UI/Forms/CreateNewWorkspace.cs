@@ -4,24 +4,32 @@ using System.Windows.Forms;
 using ProjectX.BLL;
 using SuperMap.Data;
 
-namespace projectX.UI.Forms
+namespace ProjectX.UI.Forms
 {
     public partial class CreateNewWorkspace : Form
     {
+        int Action;
         private IWorkspaceManage workspaceManage;//工作空间管理类
-        public CreateNewWorkspace(IWorkspaceManage workspaceManage)
+        public CreateNewWorkspace(IWorkspaceManage workspaceManage,int Action)
         {
             InitializeComponent();
+            this.Action = Action;
+            if (Action == 1) this.Text = "另存为工作空间";
             this.workspaceManage = workspaceManage;
         }
-
+        /// <summary>
+        /// 创建工程
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonChooseFile_Click(object sender, EventArgs e)
         {
             try
             {
                 //创建对象
-                OpenFileDialog openFileDialog = new OpenFileDialog
+                SaveFileDialog saveFileDialog = new SaveFileDialog()
                 {
+                    FileName = "siling-Data",
                     //默认上次打开路径
                     RestoreDirectory = true,
                     //设置文本框标题
@@ -32,15 +40,15 @@ namespace projectX.UI.Forms
                 //设置文件类型
                 Filter = "所有文件|*.*|SuperMap工作空间文件|*.sxw;*.smw;*.sxwu;*.smwu|SuperMap sxw文件|*.sxw|SuperMap smw文件|*.smw|SuperMap sxwu文件|*.sxwu|SuperMap smwu文件|*.smwu"
                 };
-                string str = openFileDialog.FileName;
+                string str = saveFileDialog.FileName;
                 //获取选择的路径
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     //MessageBox.Show(openFileDialog.FileName);
                     //用户点击打开后，替换
                     try
                     {
-                        textBoxFilename.Text = openFileDialog.FileName;
+                        textBoxFilename.Text = saveFileDialog.FileName;
                     }
                     catch (Exception ex)
                     {
@@ -55,44 +63,7 @@ namespace projectX.UI.Forms
 
         }
 
-        /// <summary>
-        /// 获取选择的工作空间类型
-        /// Gets the type of selected workspace
-        /// </summary>
-        /// <param name="index">选中的索引号 Index</param>
-        /// <returns>对应的类型 Type</returns>
-        private WorkspaceType GetType(String type)
-        {
-            WorkspaceType result = WorkspaceType.Default;
 
-            switch (type.ToUpper())
-            {
-                case "SMW":
-                    {
-                        result = WorkspaceType.SMW;
-                    }
-                    break;
-                case "SXW":
-                    {
-                        result = WorkspaceType.SXW;
-                    }
-                    break;
-                case "SMWU":
-                    {
-                        result = WorkspaceType.SMWU;
-                    }
-                    break;
-                case "SXWU":
-                    {
-                        result = WorkspaceType.SXWU;
-                    }
-                    break;
-                default:
-                    break;
-            }
-
-            return result;
-        }
 
         /// <summary>
         /// 点击确认尝试创建新工作空间
@@ -101,10 +72,13 @@ namespace projectX.UI.Forms
         /// <param name="e"></param>
         private void buttonConfirm_Click(object sender, EventArgs e)
         {
-            bool isSucceed;
+            bool isSucceed=false;
             if (textBoxFilename.Text!=null&& comboBoxGetTpye.Text!=null)
             {
-                isSucceed = workspaceManage.CreateWorkspace(textBoxFilename.Text, GetType(comboBoxGetTpye.Text));
+                if (Action == 0)
+                    isSucceed = workspaceManage.CreateWorkspace(textBoxFilename.Text, WorkspaceManage.GetType(comboBoxGetTpye.Text));
+                else if(Action == 1)
+                    isSucceed = workspaceManage.SaveAs(textBoxFilename.Text, WorkspaceManage.GetType(comboBoxGetTpye.Text));
                 if (isSucceed == true)
                 {
                     this.Close();

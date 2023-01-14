@@ -1,4 +1,4 @@
-﻿namespace projectX.UI.Forms
+﻿namespace ProjectX.UI.Forms
 {
     partial class CreateNewWorkspace
     {
@@ -68,10 +68,9 @@
             // comboBoxGetTpye
             // 
             this.comboBoxGetTpye.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.comboBoxGetTpye.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxGetTpye.FormattingEnabled = true;
             this.comboBoxGetTpye.Items.AddRange(new object[] {
-            "SMW",
-            "SXW",
             "SMWU",
             "SXWU"});
             this.comboBoxGetTpye.Location = new System.Drawing.Point(193, 252);

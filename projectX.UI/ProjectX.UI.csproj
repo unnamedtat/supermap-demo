@@ -65,6 +65,9 @@
     <Compile Include="Action\AttibuteManage.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Action\BorderLess.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Action\EagleEyeZoom.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +125,30 @@
     <Compile Include="Forms\CreateNewWorkspace.Designer.cs">
       <DependentUpon>CreateNewWorkspace.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddDataSource.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddDataSource.designer.cs">
+      <DependentUpon>AddDataSource.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddDataset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddDataset.designer.cs">
+      <DependentUpon>AddDataset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OpenMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OpenMap.designer.cs">
+      <DependentUpon>OpenMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\WelcomeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WelcomeForm.Designer.cs">
+      <DependentUpon>WelcomeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,6 +168,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CreateNewWorkspace.resx">
       <DependentUpon>CreateNewWorkspace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddDataSource.resx">
+      <DependentUpon>AddDataSource.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddDataset.resx">
+      <DependentUpon>AddDataset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OpenMap.resx">
+      <DependentUpon>OpenMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WelcomeForm.resx">
+      <DependentUpon>WelcomeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -190,6 +229,37 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MainForm.ico" />
+    <None Include="Resources\Form\最大化.png" />
+    <None Include="Resources\FileMange\纸张大小.png" />
+    <None Include="Resources\FileMange\输出pdf.png" />
+    <None Include="Resources\FileMange\输出图片.png" />
+    <None Include="Resources\FileMange\地图漫游.png" />
+    <None Include="Resources\FileMange\缩小地图.png" />
+    <None Include="Resources\FileMange\放大地图.png" />
+    <None Include="Resources\FileMange\锁定地图.png" />
+    <None Include="Resources\Form\最小化.png" />
+    <None Include="Resources\Form\还原.png" />
+    <None Include="Resources\Form\关闭.png" />
+    <None Include="Resources\MapBrowse\quanfu.png" />
+    <None Include="Resources\Layout\整页显示.png" />
+    <None Include="Resources\MapBrowse\manyou.png" />
+    <None Include="Resources\MapBrowse\suofang.png" />
+    <None Include="Resources\MapBrowse\xuanze.png" />
+    <None Include="Resources\MapBrowse\suoxiao.png" />
+    <None Include="Resources\MapBrowse\fangda.png" />
+    <None Include="Resources\MapBrowse\工作空间.png" />
+    <None Include="Resources\FileMange\打印.png" />
+    <None Include="Resources\FileMange\数据导入.png" />
+    <None Include="Resources\FileMange\应急救援.png" />
+    <None Include="Resources\FileMange\自动倾卸卡车.png" />
+    <None Include="Resources\FileMange\快递.png" />
+    <None Include="Resources\FileMange\曲线路径.png" />
+    <None Include="Resources\FileMange\森林火险-橙.png" />
+    <None Include="Resources\FileMange\火热.png" />
+    <None Include="Resources\welcome.gif" />
+    <None Include="Resources\FileMange\另存为-灰色.png" />
+    <None Include="Resources\FileMange\保存-灰色.png" />
+    <None Include="Resources\FileMange\模型出图.png" />
     <None Include="Resources\FileMange\添加数据.png" />
     <None Include="Resources\FileMange\布局.png" />
     <None Include="Resources\FileMange\场景.png" />

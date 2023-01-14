@@ -1,4 +1,5 @@
-﻿using ProjectX.BLL;
+﻿using ProjectX.UI.Forms;
+using ProjectX.BLL;
 using ProjectX.UI.Controls;
 using System;
 using System.Windows.Forms;
@@ -16,9 +17,23 @@ namespace ProjectX.UI
         {
             foreach (ToolStripButton button in this.toolStripTop.Items)
             {
-                button.Click += toolStripBtn_Click;
+                switch (button.Tag.ToString())
+                {
+                    case "1": button.Click += ButtonSave_Click;break;
+                    case "2": button.Click += ButtonCreatWorkspace_Click; break;
+                    case "10":
+                    case "11":
+                    case "12":
+                        button.Click += TittleButton_Click;
+                        break;
+                    default: button.Click += toolStripBtn_Click;break;
+                }
+
             }
             this.ButtonOpenWorkspace.Click += OpenFilebtnOnclick;
+            this.ButtonAddMap.Click += ButtonAddMap_Click;
+            this.ButtonAddData.Click += ButtonAddData_Click;
+            initWorkspaceManageForm();
             //int buttonNum = 5;
             ////初始化tabpage1的compositebutton
             //CompositeButton[] compositeButtons = new CompositeButton[buttonNum];
@@ -35,6 +50,48 @@ namespace ProjectX.UI
             //    this.headingLayoutPanel1.Controls.Add(compositeButtons[i]);
             //}
         }
+
+        private void TittleButton_Click(object sender, EventArgs e)
+        {
+            ToolStripButton button = (ToolStripButton)sender;
+            switch (button.Tag)
+            {
+                case "10":this.WindowState = FormWindowState.Minimized; break;
+                case "11":
+                    if(this.WindowState==FormWindowState.Maximized) {
+                        this.WindowState = FormWindowState.Normal;
+                    }
+                    else { this.WindowState = FormWindowState.Maximized; }
+                    break;
+                case "12":this.Close();break;
+            }
+        }
+
+        private void ButtonAddData_Click(object sender, EventArgs e)
+        {
+            AddDataset addDataset = new AddDataset(workspaceManage.workspace);
+            addDataset.Show();
+        }
+
+        private void ButtonAddMap_Click(object sender, EventArgs e)
+        {
+            OpenMap openMap = new OpenMap(workspaceManage);
+            openMap.Show();
+            openMap.OpenMapEvent += OpenMap_OpenMapEvent;
+            openMap.CreateMapEvent += OpenMap_CreateMapEvent;
+        }
+
+        private void OpenMap_CreateMapEvent(object sender, string e)
+        {
+            workspaceManage.CreatMap(e);
+        }
+
+        private void OpenMap_OpenMapEvent(object sender, string e)
+        {
+            OpenMap(e,utpMap);
+        }
+
+
         /// <summary>
         /// 按钮的点击事件
         /// </summary>

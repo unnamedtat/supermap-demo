@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace projectX.UI.Controls
+namespace ProjectX.UI.Controls
 {
     public partial class UserTabPage : TabControl
     {

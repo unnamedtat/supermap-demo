@@ -1,4 +1,4 @@
-﻿using projectX.UI.Controls;
+﻿using ProjectX.UI.Controls;
 using ProjectX.BLL;
 using SuperMap.UI;
 using System;
@@ -32,34 +32,31 @@ namespace ProjectX.UI
                 workspaceManage = new WorkspaceManage();
                 workspaceManage.SetWorkspace(defaultWorkSpaceInfo);//设定默认工作空间
                 utpMap = new UserTabPage();
+                utpMap.Selected += UtpMap_SelectedIndexChanged;//添加选中map更改事件
                 mapPanel.Controls.Add(utpMap);
                 InitWorkspaceControl(workspacepanel);//初始化工作空间树
                 InitLayerControl(layerPanel);//初始化图层管理器
-                InitMainMapControl(mapPanel);//初始化一个tabpage、mapcontrol
+                InitMainMapControl();//初始化一个tabpage、mapcontrol
                 InitEagZoomMapControl(Hawkeyepanel, Hboostepanel);//初始化鹰眼图放大镜控件
                 initEagleZoomEvent();//鹰眼图放大镜事件初始化
                 RefreshMainMapControl(null);
-                RefreshEagZoomControls(null);
+                RefreshEagZoomLayerControls(null);
                 workspaceManage.PropertyChanged += this.WorkspaceChanged;
                 initbtn();
                 this.mapModeChange += HeadingControl_mapModeChange;//绑定顶部按钮点击事件
                 this.tssLabelCoordinate.Alignment = ToolStripItemAlignment.Right;//状态栏
-                //绑定工作空间树的初始化事件
-                workspaceControl.WorkspaceTree.NodeMouseDoubleClick += new TreeNodeMouseClickEventHandler(WorkspaceTree_NodeMouseDoubleClick);
-                workspaceControl.WorkspaceTree.AllowDefaultAction = true;
-                workspaceControl.WorkspaceTree.BeforeNodeContextMenuStripShow += new BeforeNodeContextMenuStripShowEventHandler(WorkspaceTree_BeforeNodeContextMenuStripShow);
+                InitWorkAndLayercontrols();
+
                 this.statusStrip1.Items[1].Click += new System.EventHandler(this.UpDownButton_Click);
                 this.statusStrip1.Items[2].Click += new System.EventHandler(this.UpDownButton_Click);
                 InitiAttributeMange();
-                initWorkspaceManageForm();
+                initCoordinateInfo();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-
-
 
         /// <summary>
         /// tapage选择卡更新方法
@@ -68,23 +65,23 @@ namespace ProjectX.UI
         /// <param name="e"></param>
         private void UtpMap_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (utpMap.SelectedTab != null) 
+            if (utpMap.SelectedTab != null && ((ControlAccessibleObject)utpMap.SelectedTab.AccessibilityObject).Name !=null) 
             {
                 MapControl tempmapControl = (MapControl)utpMap.SelectedTab.Controls[0];
                 activeMapControl = tempmapControl;
                 RefreshMainMapControl(activeMapControl.Map.Name);
-                RefreshEagZoomControls(activeMapControl.Map.Name);
+                RefreshEagZoomLayerControls(activeMapControl.Map.Name);
                 ChangeMap();
             }
-            else
-            {
-                //默认打开第一张地图
-                AddMapAndTab();
-                RefreshMainMapControl(null);
-                RefreshEagZoomControls(null);
-                ChangeMap();
-                utpMap.Selected += UtpMap_SelectedIndexChanged;
-            }
+            //else
+            //{
+            //    //默认打开第一张地图
+            //    AddMapAndTab();
+            //    RefreshMainMapControl(null);
+            //    RefreshEagZoomLayerControls(null);
+            //    ChangeMap();
+            //    utpMap.Selected += UtpMap_SelectedIndexChanged;
+            //}
         }
 
         /// <summary>
@@ -127,12 +124,11 @@ namespace ProjectX.UI
         /// 初始化添加地图控件
         /// </summary>
         /// <param name="mapPanel"></param>
-        private void InitMainMapControl(Panel mapPanel)
+        private void InitMainMapControl()
         {
             viewIndex = 0;
             this.utpMap.TabPages.Clear();//清除所有tabpage
             AddMapAndTab();
-            utpMap.Selected += UtpMap_SelectedIndexChanged;//添加选中map更改事件
         }
         /// <summary>
         /// 改变放大镜中尺度

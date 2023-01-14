@@ -1,16 +1,17 @@
-﻿using SuperMap.Data;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿///////////////////////////////////////////////////////////////////////////////////////////////////
+//------------------------------属性表相应功能----------------------------
+//
+// 此部分用于实现属性表、空间查询等功能
+//------------------------------------------------------------------
+///////////////////////////////////////////////////////////////////////////////////////////////////
 using ProjectX.UI.Forms;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SuperMap.UI;
-using System.Windows.Forms;
+using SuperMap.Data;
 using SuperMap.Mapping;
+using SuperMap.UI;
+using System;
 using System.Diagnostics;
-using System.Data;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace ProjectX.UI
 {
@@ -28,7 +29,6 @@ namespace ProjectX.UI
         private void InitiAttributeMange()
         {
             this.IsQuerying = false;
-            this.activeMapControl.GeometrySelected += new SuperMap.UI.GeometrySelectedEventHandler(m_mapControl_GeometrySelected);
 
             this.activeMapControl.MouseDown += new MouseEventHandler(MapMouseDownHandler);
             this.activeMapControl.MouseMove += new MouseEventHandler(MapMouseMoveHandler);
@@ -42,6 +42,9 @@ namespace ProjectX.UI
             this.attributeTableForm = new AttributeTable();
             if (layersControl.LayersTree.SelectedNode != null)
             {
+                //挂接几何对象选择事件
+                this.activeMapControl.GeometrySelected += new SuperMap.UI.GeometrySelectedEventHandler(m_mapControl_GeometrySelected);
+
                 attributeTableForm.Text = "属性表:" + layersControl.LayersTree.SelectedNode.Name;
                 attributeTableForm.Show();
                 foreach (Datasource datasource in this.workspaceManage.workspace.Datasources)
@@ -55,7 +58,6 @@ namespace ProjectX.UI
                             OutPutToTable(recordset);
                             return;
                         }
-
                     }
                 }
             }
@@ -227,7 +229,11 @@ namespace ProjectX.UI
                 Trace.WriteLine(ex.Message);
             }
         }
-
+        /// <summary>
+        /// 通过字符信息获得图层信息
+        /// </summary>
+        /// <param name="layerCaption"></param>
+        /// <returns></returns>
         private Layer GetLayerByCaption(String layerCaption)
         {
             Layers layers = this.activeMapControl.Map.Layers;

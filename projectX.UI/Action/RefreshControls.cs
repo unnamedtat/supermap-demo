@@ -17,17 +17,16 @@ namespace ProjectX.UI
         {
             // 工作空间树连接到新工作空间
             this.workspaceControl.WorkspaceTree.Workspace = workspaceManage.workspace;
-            utpMap.Selected -= UtpMap_SelectedIndexChanged;
-            this.utpMap.Controls.Clear();
-            AddMapAndTab();
+            //utpMap.Selected -= UtpMap_SelectedIndexChanged;
+            InitMainMapControl();
             RefreshMainMapControl(null);
-            RefreshEagZoomControls(null);
-            utpMap.Selected += UtpMap_SelectedIndexChanged;
+            RefreshEagZoomLayerControls(null);
+            //utpMap.Selected += UtpMap_SelectedIndexChanged;
         }
         /// <summary>
-        /// 刷新鹰眼图和放大镜
+        /// 刷新鹰眼图和放大镜、图层管理器
         /// </summary>
-        public void RefreshEagZoomControls(string Mapname)
+        public void RefreshEagZoomLayerControls(string Mapname)
         {
             // 将地图关联到图层管理器，使其管理其中的地图图层
             this.layersControl.Map = this.activeMapControl.Map;
@@ -88,16 +87,21 @@ namespace ProjectX.UI
                 }
                 //更换控件工作空间
                 control.Map.Workspace = workspaceManage.workspace;
-                //默认打开第一张地图
-                if (Mapname == null && workspaceManage.workspace.Maps.Count != 0)
+                //默认打开第一张地图，若无则创建一张 
+                if (workspaceManage.workspace.Maps.Count == 0)
+                {
+                    workspaceManage.CreatMap("未命名地图");
+                }
+                if (Mapname == null)
                 {
                     string mapname0 = workspaceManage.workspace.Maps[0];
                     control.Map.Open(mapname0);
                     utpMap.SelectedTab.Text = mapname0;
                 }
-                else if (Mapname != null) { control.Map.Open(Mapname);
+                else if (Mapname != null)
+                {
+                    control.Map.Open(Mapname);
                     utpMap.SelectedTab.Text = Mapname;
-                    
                 }
                 control.Map.Refresh();
             }
@@ -111,7 +115,7 @@ namespace ProjectX.UI
         /// </summary>
         private void AddMapAndTab()
         {
-            utpMap.Selected -= UtpMap_SelectedIndexChanged;//为防止冲突，先取消挂接
+//            utpMap.Selected -= UtpMap_SelectedIndexChanged;//为防止冲突，先取消挂接
             TabPage tabPage = new TabPage();
             MapControl mapControl = new MapControl();
             mapControl.Dock = DockStyle.Fill;

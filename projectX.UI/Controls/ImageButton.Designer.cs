@@ -1,4 +1,4 @@
-﻿namespace projectX.UI.Controls
+﻿namespace ProjectX.UI.Controls
 {
     partial class ImageButton
     {

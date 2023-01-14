@@ -9,12 +9,33 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace projectX.UI.Controls
+namespace ProjectX.UI.Controls
 {
     public partial class ImageButton : Button
     {
         private Image buttonImage;
         private string buttonText;
+        private ButtonType buttontype;
+        /// <summary>
+        /// 设置按钮类型
+        /// </summary>
+        public ButtonType SetButtonType
+        {
+            get
+            {
+                return buttontype;
+            }
+            set
+            {
+                this.buttontype = value;
+            }
+        }
+        public enum ButtonType {
+            [Description("正常")]
+            normal=0,
+            [Description("小")]
+            small=1,
+        }
         /// <summary>
         /// 设置图片
         /// </summary>
@@ -31,29 +52,35 @@ namespace projectX.UI.Controls
             set { this.buttonText = value; }
             get { return this.buttonText; }
         }
-
         public ImageButton()
         {
+            this.SetButtonType = ButtonType.normal;
             InitializeComponent();
-            InitialImageButton();
         }
 
-        private void InitialImageButton()
-        {
-        }
+
         protected override void OnPaint(PaintEventArgs pevent)
         {
             base.OnPaint(pevent);
-            //Rectangle buttonBBondingBox = new Rectangle(this.Bounds.Location, this.Size);
-            PointF ImageLocation = new PointF((float)(this.Bounds.Size.Width * 0.1), (float)(this.Bounds.Size.Width * 0.1));
-            SizeF imageSize = new SizeF((float)(this.Bounds.Size.Width * 0.8), (float)(this.Bounds.Size.Width * 0.8));
-            RectangleF imageBondingBox = new RectangleF(ImageLocation, imageSize);
+            PointF ImageLocation; SizeF imageSize; RectangleF imageBondingBox; PointF TextLocation;
             Graphics g = pevent.Graphics;
-            PointF TextLocation = new PointF((float)(this.Bounds.Size.Width * 0.05), (float)(this.Bounds.Size.Width * 0.9));
-            if (this.buttonImage!=null)
-            g.DrawImage(this.buttonImage,imageBondingBox);
+            if (buttontype == ButtonType.normal)
+            {
+                ImageLocation = new PointF((float)(this.Bounds.Size.Width * 0.1), (float)(this.Bounds.Size.Width * 0.1));
+                imageSize = new SizeF((float)(this.Bounds.Size.Width * 0.8), (float)(this.Bounds.Size.Width * 0.8));
+                TextLocation = new PointF((float)(this.Bounds.Size.Width * 0.05), (float)(this.Bounds.Size.Width * 0.9));
+            }
+            else
+            {
+                ImageLocation = new PointF((float)(this.Bounds.Size.Height * 0.1), (float)(this.Bounds.Size.Height * 0.1));
+                imageSize = new SizeF((float)(this.Bounds.Size.Height * 0.8), (float)(this.Bounds.Size.Height * 0.8));
+                TextLocation = new PointF((float)(this.Bounds.Size.Height * 1), (float)(this.Bounds.Size.Width * 0.1));
+            }
+            imageBondingBox = new RectangleF(ImageLocation, imageSize);
+            if (this.buttonImage != null)
+                g.DrawImage(this.buttonImage, imageBondingBox);
             if (this.buttonText != null)
-               g.DrawString(this.buttonText, this.Font, Brushes.Black, TextLocation);
+                g.DrawString(this.buttonText, this.Font, Brushes.Black, TextLocation);
         }
     }
 }
