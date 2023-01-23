@@ -3,12 +3,14 @@ using System.IO;
 using System.Windows.Forms;
 using ProjectX.BLL;
 using SuperMap.Data;
+using SuperMap.UI;
 
 namespace ProjectX.UI.Forms
 {
     public partial class CreateNewWorkspace : Form
     {
         int Action;
+        public EventHandler<WorkspaceConnectionInfo> SaveElementsEventHandler;//通知保存tab中物体
         private IWorkspaceManage workspaceManage;//工作空间管理类
         public CreateNewWorkspace(IWorkspaceManage workspaceManage,int Action)
         {
@@ -76,9 +78,18 @@ namespace ProjectX.UI.Forms
             if (textBoxFilename.Text!=null&& comboBoxGetTpye.Text!=null)
             {
                 if (Action == 0)
-                    isSucceed = workspaceManage.CreateWorkspace(textBoxFilename.Text, WorkspaceManage.GetType(comboBoxGetTpye.Text));
+                    isSucceed = workspaceManage.CreateWorkspace(textBoxFilename.Text, comboBoxGetTpye.Text);
                 else if(Action == 1)
-                    isSucceed = workspaceManage.SaveAs(textBoxFilename.Text, WorkspaceManage.GetType(comboBoxGetTpye.Text));
+                {
+                    WorkspaceConnectionInfo connectionInfo = new WorkspaceConnectionInfo(textBoxFilename.Text + "." + comboBoxGetTpye.Text);
+                    isSucceed = workspaceManage.SaveAs(connectionInfo);
+                    SaveElementsEventHandler(sender, connectionInfo);
+                    if (isSucceed)
+                    {
+                        workspaceManage.workspace.Close();
+                        workspaceManage.SetWorkspace(connectionInfo);
+                    }
+                }
                 if (isSucceed == true)
                 {
                     this.Close();

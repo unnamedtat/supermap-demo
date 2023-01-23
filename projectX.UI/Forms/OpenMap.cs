@@ -1,42 +1,71 @@
-﻿using ProjectX.UI.Controls;
-using ProjectX.BLL;
-using SuperMap.UI;
+﻿using ProjectX.BLL;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace ProjectX.UI.Forms
 {
     public partial class OpenMap : Form
     {
+        FormType formType;
+        /// <summary>
+        /// 此form被用作的用途
+        /// </summary>
+        public enum FormType
+        {
+            [Description("打开地图")]
+            OpenMapForm = 0,
+            [Description("打开布局")]
+            OpenLayoutForm = 1,
+        }
         /// <summary>
         /// 打开map的事件
         /// </summary>
-        public event EventHandler<string> OpenMapEvent;
+        public event EventHandler<string> OpenEvent;
         /// <summary>
         /// 创建map的事件
         /// </summary>
-        public event EventHandler<string> CreateMapEvent;
-        public OpenMap(IWorkspaceManage workspaceManage)
+        public event EventHandler<string> CreateEvent;
+        private IWorkspaceManage workspaceManage;
+        public OpenMap(IWorkspaceManage workspaceManage, FormType formType)
         {
+            this.formType = formType;
+            this.workspaceManage = workspaceManage;
             InitializeComponent();
-            initiOpenMapFrom(workspaceManage);
+            if (formType == FormType.OpenMapForm) initOpenMapFrom();
+            else if (formType == FormType.OpenLayoutForm) initOpenLayoutForm();
+        }
+        /// <summary>
+        /// 初始化打开布局窗口
+        /// </summary>
+        /// <param name="workspaceManage"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void initOpenLayoutForm()
+        {
+            this.Text = "打开布局";
+            this.label1.Text = "打开已有布局";
+            this.label2.Text = "新建布局";
+            initButtonEvent();
+            foreach (string layout in this.workspaceManage.workspace.Layouts)
+            {
+                comboBox.Items.Add(layout);
+            }
         }
 
-        private void initiOpenMapFrom(IWorkspaceManage workspaceManage)
+        private void initButtonEvent()
         {
             buttonOpen.Click += ButtonOpen_Click;
             buttonCreat.Click += ButtonCreate_Click;
-            foreach (string map in workspaceManage.workspace.Maps)
+        }
+
+        /// <summary>
+        /// 初始化打开地图窗口
+        /// </summary>
+        /// <param name="workspaceManage"></param>
+        private void initOpenMapFrom()
+        {
+            initButtonEvent();
+            foreach (string map in this.workspaceManage.workspace.Maps)
             {
                 comboBox.Items.Add(map);
             }
@@ -51,22 +80,21 @@ namespace ProjectX.UI.Forms
         {
             if (this.textBox.Text != null)
             {
-                CreateMapEvent(e, this.textBox.Text);
+                CreateEvent(e, this.textBox.Text);
                 this.Close();
             }
         }
-
         /// <summary>
-                /// 打开地图
-                /// </summary>
-                /// <param name="sender"></param>
-                /// <param name="e"></param>
-                /// <exception cref="NotImplementedException"></exception>
+        /// 打开地图
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <exception cref="NotImplementedException"></exception>
         private void ButtonOpen_Click(object sender, EventArgs e)
         {
             if (this.comboBox.Text != null)
             {
-                OpenMapEvent(e, this.comboBox.Text);
+                OpenEvent(e, this.comboBox.Text);
                 this.Close();
             }
         }

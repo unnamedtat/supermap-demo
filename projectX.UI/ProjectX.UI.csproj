@@ -35,9 +35,33 @@
   <PropertyGroup>
     <ApplicationIcon>MainForm.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="SuperMap.Data">
       <HintPath>..\..\..\..\Program Files (x86)\supermap-iobjectsdotnet-11.0.0-21114-95737-all\Bin_x64\SuperMap.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="SuperMap.Layout, Version=7.0.0.0, Culture=neutral, PublicKeyToken=0635c574ea890381, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\supermap-iobjectsdotnet-11.0.0-21114-95737-all\Bin_x64\SuperMap.Layout.dll</HintPath>
     </Reference>
     <Reference Include="SuperMap.Mapping">
       <HintPath>..\..\..\..\Program Files (x86)\supermap-iobjectsdotnet-11.0.0-21114-95737-all\Bin_x64\SuperMap.Mapping.dll</HintPath>
@@ -143,6 +167,12 @@
     <Compile Include="Forms\OpenMap.designer.cs">
       <DependentUpon>OpenMap.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\SelectSaveElements.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SelectSaveElements.Designer.cs">
+      <DependentUpon>SelectSaveElements.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\WelcomeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,6 +207,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OpenMap.resx">
       <DependentUpon>OpenMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SelectSaveElements.resx">
+      <DependentUpon>SelectSaveElements.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\WelcomeForm.resx">
       <DependentUpon>WelcomeForm.cs</DependentUpon>
@@ -229,6 +262,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MainForm.ico" />
+    <None Include="Resources\Layout\指北针.png" />
+    <None Include="Resources\Layout\图例.png" />
+    <None Include="Resources\Layout\比例尺.png" />
+    <None Include="Resources\Layout\格网.png" />
+    <None Include="Resources\Layout\统计图表.png" />
+    <None Include="Resources\Layout\表格.png" />
+    <None Include="Resources\Layout\图片.png" />
+    <None Include="Resources\Layout\文本.png" />
+    <None Include="Resources\Layout\线.png" />
+    <None Include="Resources\Layout\面.png" />
+    <None Include="Resources\Layout\点.png" />
+    <None Include="Resources\Form\皮肤.png" />
     <None Include="Resources\Form\最大化.png" />
     <None Include="Resources\FileMange\纸张大小.png" />
     <None Include="Resources\FileMange\输出pdf.png" />

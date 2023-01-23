@@ -9,6 +9,60 @@ namespace ProjectX.UI
     public partial class MainForm
     {
         /// <summary>
+        /// tapage选择卡更新方法
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UtpMap_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (utpMap.SelectedTab != null)
+            {
+                if (((ControlAccessibleObject)utpMap.SelectedTab.AccessibilityObject).Name != null)
+                {
+                    if (utpMap.SelectedTab.Controls[0] is MapControl)
+                    {
+                        ShowMapControls();
+                        MapControl tempmapControl = (MapControl)utpMap.SelectedTab.Controls[0];
+                        activeMapControl = tempmapControl;
+                        ChangeMap(activeMapControl.Map.Name);
+                        ChangeButtonEnable(true);//按钮状态切换为可用
+                    }
+                    else if (utpMap.SelectedTab.Controls[0] is MapLayoutControl)
+                    {
+                        CloseTheMap();
+                        MapLayoutControl tempmaplayoutControl = (MapLayoutControl)utpMap.SelectedTab.Controls[0];
+                        layoutManage.SetLayoutControl(tempmaplayoutControl);
+                        InitLayoutButtonClick();
+                        ChangeToLayout();
+                        ChangeButtonEnable(false);
+                    }
+                }
+            }
+            else
+            {
+                //无布局、地图页面，保存无意义
+                ButtonSave.Enabled = false;
+                toolStripButton3.Enabled = false;
+                this.layersControl.Map.Close();
+                CloseTheMap();
+                ChangeButtonEnable(false);
+            }
+
+        }
+        /// <summary>
+        /// 切换视图时切换按钮可用状态
+        /// </summary>
+        private void ChangeButtonEnable(bool IsEnable)
+        {
+            ButtonSpatialQuery.Enabled = IsEnable;
+            ButtonAttributeTable.Enabled = IsEnable;
+            foreach (ToolStripItem toolStripButton in toolStripTop.Items)
+            {
+                if (Convert.ToInt32(toolStripButton.Tag.ToString()) > 2&& Convert.ToInt32(toolStripButton.Tag.ToString())<10)
+                    toolStripButton.Enabled= IsEnable;
+            }
+        }
+        /// <summary>
         /// 工作空间更换时调用的方法
         /// </summary>
         /// <param name="sender"></param>
@@ -17,11 +71,9 @@ namespace ProjectX.UI
         {
             // 工作空间树连接到新工作空间
             this.workspaceControl.WorkspaceTree.Workspace = workspaceManage.workspace;
-            //utpMap.Selected -= UtpMap_SelectedIndexChanged;
-            InitMainMapControl();
-            RefreshMainMapControl(null);
-            RefreshEagZoomLayerControls(null);
-            //utpMap.Selected += UtpMap_SelectedIndexChanged;
+            TabPage InitTabpage = InitMainMapControl();
+            InitOpenFristMap(InitTabpage);
+            ChangeButtonEnable(true);//按钮状态切换为可用
         }
         /// <summary>
         /// 刷新鹰眼图和放大镜、图层管理器
@@ -59,7 +111,7 @@ namespace ProjectX.UI
                 this.mapControlMagnifier.Map.Scale = this.activeMapControl.Map.Scale * this.ScaleIndex;
         }
         /// <summary>
-        /// 刷新本主地图控件
+        /// 刷新主地图控件
         /// </summary>
         private void RefreshMainMapControl(string Mapname)
         {
@@ -71,7 +123,6 @@ namespace ProjectX.UI
                 this.activeMapControl.Map.ViewEntire();
             }
         }
-
         /// <summary>
         /// 刷新地图控件状态
         /// </summary>
@@ -87,22 +138,7 @@ namespace ProjectX.UI
                 }
                 //更换控件工作空间
                 control.Map.Workspace = workspaceManage.workspace;
-                //默认打开第一张地图，若无则创建一张 
-                if (workspaceManage.workspace.Maps.Count == 0)
-                {
-                    workspaceManage.CreatMap("未命名地图");
-                }
-                if (Mapname == null)
-                {
-                    string mapname0 = workspaceManage.workspace.Maps[0];
-                    control.Map.Open(mapname0);
-                    utpMap.SelectedTab.Text = mapname0;
-                }
-                else if (Mapname != null)
-                {
-                    control.Map.Open(Mapname);
-                    utpMap.SelectedTab.Text = Mapname;
-                }
+                control.Map.Open(Mapname);
                 control.Map.Refresh();
             }
             catch (Exception ex)
@@ -113,16 +149,16 @@ namespace ProjectX.UI
         /// <summary>
         /// 添加地图控件和Tabpage页
         /// </summary>
-        private void AddMapAndTab()
+        private TabPage AddMapAndTab()
         {
-//            utpMap.Selected -= UtpMap_SelectedIndexChanged;//为防止冲突，先取消挂接
             TabPage tabPage = new TabPage();
             MapControl mapControl = new MapControl();
             mapControl.Dock = DockStyle.Fill;
             tabPage.Controls.Add(mapControl);
             utpMap.TabPages.Add(tabPage); 
             activeMapControl = mapControl;
-            utpMap.SelectedTab = tabPage;
+            return tabPage;
         }
+
     }
 }

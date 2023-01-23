@@ -4,11 +4,15 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
+using SuperMap.Layout;
+using SuperMap.UI;
+using ProjectX.BLL.Layout;
 
 namespace ProjectX.BLL
 {
     public class WorkspaceManage : IWorkspaceManage
     {
+
         private Workspace _workspace;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -19,7 +23,7 @@ namespace ProjectX.BLL
         /// 设定工作空间
         /// </summary>
         /// <param name="WorkspaceInfo"></param>
-        public void SetWorkspace(String WorkspaceInfo)
+        public void SetWorkspace(WorkspaceConnectionInfo WorkspaceInfo)
         {
             this._workspace = new Workspace();
             WorkspaceConnectionInfo coninfo = new WorkspaceConnectionInfo(WorkspaceInfo);
@@ -54,7 +58,8 @@ namespace ProjectX.BLL
                     try
                     {
                         workspace.Close();
-                        SetWorkspace(openFileDialog.FileName);
+                        WorkspaceConnectionInfo connectionInfo = new WorkspaceConnectionInfo(openFileDialog.FileName);
+                        SetWorkspace(connectionInfo);
                     }
                     catch (Exception ex)
                     {
@@ -73,8 +78,8 @@ namespace ProjectX.BLL
         public void CreatMap(string name)
         {
             Map map = new Map();
-            this._workspace.Maps.Add(this._workspace.Maps.GetAvailableMapName(name), map.ToXML());
-            //this._workspace.Maps.Add(name, map.ToXML());
+            map.Name = this._workspace.Maps.GetAvailableMapName(name);
+            this._workspace.Maps.Add(map.Name, map.ToXML());
         }
         /// <summary>
         /// 对当前工作空间进行保存操作
@@ -92,32 +97,17 @@ namespace ProjectX.BLL
         /// <param name="WorkspaceInfo"></param>
         /// <param name="workspaceType"></param>
         /// <returns></returns>
-        public bool SaveAs(String WorkspaceInfo, WorkspaceType workspaceType)
+        public bool SaveAs(WorkspaceConnectionInfo connectionInfo)
         {
             Boolean isSucceed = false;
-            try
-            {
-                WorkspaceConnectionInfo connectionInfo = new WorkspaceConnectionInfo(WorkspaceInfo);
-                connectionInfo.Type = workspaceType;
-                isSucceed = this._workspace.SaveAs(connectionInfo);
-                if (isSucceed)
-                {
-                    workspace.Close();
-                    SetWorkspace(WorkspaceInfo);
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine(ex.Message);
-            }
+            isSucceed = this._workspace.SaveAs(connectionInfo); 
             return isSucceed;
         }
-
         /// <summary>
         /// 创建新工作空间
         /// </summary>
         /// <exception cref="NotImplementedException"></exception>
-        public bool CreateWorkspace(String WorkspaceInfo, WorkspaceType workspaceType)
+        public bool CreateWorkspace(String WorkspaceInfo, string workspaceType)
         {
             Boolean isSucceed = false;
             if ((string)null == WorkspaceInfo)
@@ -127,8 +117,7 @@ namespace ProjectX.BLL
             try
             {
                 workspace.Close();
-                WorkspaceConnectionInfo connectionInfo = new WorkspaceConnectionInfo(WorkspaceInfo);
-                connectionInfo.Type = workspaceType;
+                WorkspaceConnectionInfo connectionInfo = new WorkspaceConnectionInfo(WorkspaceInfo+"."+ workspaceType);
                 isSucceed = workspace.Create(connectionInfo);
                 this._workspace.Open(connectionInfo);
 
@@ -184,6 +173,39 @@ namespace ProjectX.BLL
             }
             return result;
         }
+        /// <summary>
+        /// 创建布局
+        /// </summary>
+        /// <param name="name"></param>
+        public void CreatLayout(string name)
+        {
+            MapLayout mapLayout = new MapLayout(this.workspace);
+            mapLayout.Name = this._workspace.Layouts.GetAvailableLayoutName(name);
+            this.workspace.Layouts.Add(mapLayout.Name, mapLayout.ToXML());
 
+        }
+        /// <summary>
+        /// 保存布局
+        /// </summary>
+        /// <param name="xml"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static bool SaveElements(SaveArgs saveArgs,Workspace workspace)
+        {
+            switch (saveArgs.tabType)
+            {
+                case TabType.Map:
+                    return workspace.Maps.SetMapXML(saveArgs.Name, saveArgs.XML); 
+                    break;
+                case TabType.Scene:
+                    break;
+                case TabType.Layout:
+                    return workspace.Layouts.SetLayoutXML(saveArgs.Name, saveArgs.XML);
+                    break;
+                default:
+                    break;
+            }
+            return false;
+        }
     }
 }

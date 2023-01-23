@@ -28,7 +28,7 @@ namespace ProjectX.UI.Forms
             try
             {
                 InitializeComponent();
-				InitializeCultureResources();
+				//InitializeCultureResources();
                 Initialize(workspace);
             }
             catch (Exception ex)
@@ -47,11 +47,11 @@ namespace ProjectX.UI.Forms
 				this.openPage.Text = "打开";
 				this.openKeyText.Size = new System.Drawing.Size(79, 15);
 				this.openKeyText.Size = new System.Drawing.Size(79, 15);
-				this.openFileSource.Size = new System.Drawing.Size(65, 28);
+				//this.openFileSource.Size = new System.Drawing.Size(65, 28);
 				this.openFileSource.Text = "打开";
 				this.openPathLabel.Size = new System.Drawing.Size(77, 15);
 				this.openPathLabel.Text = "路    径:";
-				this.openFolderBrowser.Size = new System.Drawing.Size(65, 28);
+				//this.openFolderBrowser.Size = new System.Drawing.Size(65, 28);
 				this.openFolderBrowser.Text = "浏览";
 				this.openPasswordLabel.Size = new System.Drawing.Size(77, 15);
 				this.openPasswordLabel.Text = "密    码:";
@@ -71,11 +71,11 @@ namespace ProjectX.UI.Forms
 				this.createFileSource.Text = "创建";
 				this.createFilePathLabel.Size = new System.Drawing.Size(77, 15);
 				this.createFilePathLabel.Text = "路    径:";
-				this.createFileFolderBrowser.Size = new System.Drawing.Size(65, 28);
+				//this.createFileFolderBrowser.Size = new System.Drawing.Size(65, 28);
 				this.createFileFolderBrowser.Text = "浏览";
 				this.createTypeLable.Size = new System.Drawing.Size(75, 15);
 				this.createTypeLable.Text = "引擎类型:";
-				this.createDatabaseSource.Size = new System.Drawing.Size(73, 28);
+				//this.createDatabaseSource.Size = new System.Drawing.Size(73, 28);
 				this.createDatabaseSource.Text = "创建";
 				this.createPasswordLabel.Size = new System.Drawing.Size(77, 15);
 				this.createPasswordLabel.Text = "密    码:";
@@ -85,10 +85,10 @@ namespace ProjectX.UI.Forms
 				this.createDatabaseLabel.Text = "数据库名:";
 				this.createServerLabel.Size = new System.Drawing.Size(75, 15);
 				this.createServerLabel.Text = "服务器名:";
-				this.datasourceGroup.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-				this.datasourceGroup.Size = new System.Drawing.Size(593, 720);
+				//this.datasourceGroup.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+				//this.datasourceGroup.Size = new System.Drawing.Size(593, 720);
 				this.datasourceGroup.Text = "数据源信息";
-				this.datasourceText.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+				//this.datasourceText.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 				this.Text = "数据源管理";
 			}
 			else
@@ -126,7 +126,7 @@ namespace ProjectX.UI.Forms
 				this.createFileFolderBrowser.Text = "Browse";
 				this.createTypeLable.Size = new System.Drawing.Size(35, 12);
 				this.createTypeLable.Text = "Type:";
-				this.createDatabaseSource.Size = new System.Drawing.Size(55, 22);
+				//this.createDatabaseSource.Size = new System.Drawing.Size(55, 22);
 				this.createDatabaseSource.Text = "Create";
 				this.createPasswordLabel.Size = new System.Drawing.Size(59, 12);
 				this.createPasswordLabel.Text = "Password:";
@@ -136,10 +136,10 @@ namespace ProjectX.UI.Forms
 				this.createDatabaseLabel.Text = "Database:";
 				this.createServerLabel.Size = new System.Drawing.Size(47, 12);
 				this.createServerLabel.Text = "Server:";
-				this.datasourceGroup.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+				//this.datasourceGroup.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 				this.datasourceGroup.Size = new System.Drawing.Size(445, 576);
 				this.datasourceGroup.Text = "Datasource Information";
-				this.datasourceText.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+				//this.datasourceText.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 				this.Text = "Manage Datasource";
 			}
 		}

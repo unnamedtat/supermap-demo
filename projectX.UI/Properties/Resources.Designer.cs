@@ -243,6 +243,26 @@ namespace projectX.UI.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap 图例 {
+            get {
+                object obj = ResourceManager.GetObject("图例", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 图片 {
+            get {
+                object obj = ResourceManager.GetObject("图片", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap 地图 {
             get {
                 object obj = ResourceManager.GetObject("地图", resourceCulture);
@@ -363,6 +383,16 @@ namespace projectX.UI.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap 指北针 {
+            get {
+                object obj = ResourceManager.GetObject("指北针", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap 指针 {
             get {
                 object obj = ResourceManager.GetObject("指针", resourceCulture);
@@ -416,6 +446,16 @@ namespace projectX.UI.Properties {
         internal static System.Drawing.Bitmap 整页显示 {
             get {
                 object obj = ResourceManager.GetObject("整页显示", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 文本 {
+            get {
+                object obj = ResourceManager.GetObject("文本", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -483,6 +523,16 @@ namespace projectX.UI.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap 格网 {
+            get {
+                object obj = ResourceManager.GetObject("格网", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap 森林火险_橙 {
             get {
                 object obj = ResourceManager.GetObject("森林火险-橙", resourceCulture);
@@ -496,6 +546,16 @@ namespace projectX.UI.Properties {
         internal static System.Drawing.Bitmap 模型出图 {
             get {
                 object obj = ResourceManager.GetObject("模型出图", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 比例尺 {
+            get {
+                object obj = ResourceManager.GetObject("比例尺", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -523,9 +583,49 @@ namespace projectX.UI.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap 点 {
+            get {
+                object obj = ResourceManager.GetObject("点", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 皮肤 {
+            get {
+                object obj = ResourceManager.GetObject("皮肤", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap 纸张大小 {
             get {
                 object obj = ResourceManager.GetObject("纸张大小", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 线 {
+            get {
+                object obj = ResourceManager.GetObject("线", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 统计图表 {
+            get {
+                object obj = ResourceManager.GetObject("统计图表", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -566,6 +666,16 @@ namespace projectX.UI.Properties {
         internal static System.Drawing.Bitmap 自由缩放 {
             get {
                 object obj = ResourceManager.GetObject("自由缩放", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 表格 {
+            get {
+                object obj = ResourceManager.GetObject("表格", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -616,6 +726,16 @@ namespace projectX.UI.Properties {
         internal static System.Drawing.Bitmap 锁定地图 {
             get {
                 object obj = ResourceManager.GetObject("锁定地图", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 面 {
+            get {
+                object obj = ResourceManager.GetObject("面", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -82,8 +82,7 @@ namespace ProjectX.UI
                     case WorkspaceTreeNodeDataType.MapName:
                         {
                             String mapName = node.GetData() as String;
-
-                            OpenMap(mapName, this.utpMap);
+                            OpenMap(mapName);
                             //else if (m_layersControl.Scene != null && !m_layersControl.Scene.Layers.Contains(mapName))
                             //{
                             //    m_layersControl.Scene.Layers.Add(mapName, Layer3DType.Map, true, mapName);
@@ -118,6 +117,10 @@ namespace ProjectX.UI
                         break;
                     case WorkspaceTreeNodeDataType.Maps:
                         break;
+                    case WorkspaceTreeNodeDataType.LayoutName:
+                        String LayoutName = node.GetData() as String;
+                        OpenLayoutEvent(LayoutName);
+                        break;
                     default:
                         break;
                 }
@@ -130,23 +133,21 @@ namespace ProjectX.UI
         /// </summary>
         /// <param name="mapName"></param>
         /// <param name="utpMap"></param>
-        private void OpenMap(string mapName, UserTabPage utpMap)
+        private void OpenMap(string mapName)
         {
-            if (layersControl.Map != null)
+            ShowMapControls();
+            TabPage containTapPage = checkMapIsInUtp(mapName, utpMap);
+            //若已存在，不添加,改变激活map
+            if (containTapPage != null)
             {
-                TabPage containTapPage = checkMapIsInUtp(mapName, utpMap);
-                //若已存在，不添加,改变激活map
-                if (containTapPage != null)
-                {
-                    activeMapControl = (MapControl)containTapPage.Controls[0];
-                    utpMap.SelectedTab = containTapPage;
-                }
-                else AddMapAndTab();
-                RefreshMainMapControl(mapName);
-                RefreshEagZoomLayerControls(mapName);
-                ChangeMap();
-                //utpMap.Selected += UtpMap_SelectedIndexChanged;//重新挂接
+                activeMapControl = (MapControl)containTapPage.Controls[0];
             }
+            else containTapPage=AddMapAndTab();
+            RefreshMainMapControl(mapName);
+            ChangeMap(mapName);
+            ChangeButtonEnable(true);//按钮状态切换为可用
+            containTapPage.Text= mapName;
+            utpMap.SelectedTab = containTapPage;
         }
         /// <summary>
         /// 查看地图是否重复加入
@@ -157,11 +158,95 @@ namespace ProjectX.UI
         {
             foreach (TabPage tabpage in utpMap.TabPages)
             {
-                MapControl mapcontrol = (MapControl)tabpage.Controls[0];
-                if (mapcontrol.Map.Name == mapName) return tabpage;
+                if (tabpage.Controls[0] is MapControl)
+                {
+                    MapControl mapcontrol = (MapControl)tabpage.Controls[0];
+                    if (mapcontrol.Map.Name == mapName) return tabpage;
+                }
             }
             return null;
         }
+        /// <summary>
+        /// 从其他标签页切换到map视图,展示控件
+        /// </summary>
+        private void ShowMapControls()
+        {
+            EnableSaveButton();
+            splitContainerdata.Panel1Collapsed = false;
+            tabPageHawkeye.Parent = tabpageleft;
+            tabPageAuto.Parent = tabControlHeading;
+            this.tabPageLayout.Parent = null;
+            this.tabPageLayoutItems.Parent = null;
+        }
+        /// <summary>
+        /// 关闭当前tab的map或者是切换为布局时图层管理器等的行为
+        /// </summary>
+        private void CloseTheMap()
+        {
+            //this.layersControl.Map.Close();
+            this.mapControlEagleEye.Map.Close();
+            this.mapControlMagnifier.Map.Close();
+            splitContainerdata.Panel1Collapsed = true;
+            tabPageHawkeye.Parent = null;
+            tabPageAuto.Parent = null;
+        }
+        /// <summary>
+        /// 切换地图窗口，更改图层管理器、鹰眼图等关联
+        /// </summary>
+        private void ChangeMap(string mapName)
+        {
+            this.viewIndex = 0;
+            RefreshEagZoomLayerControls(mapName);
+            initEagleZoomEvent();
+            InitiAttributeMange();
+        }
+        /// <summary>
+        /// 在指定tabcontrol中打开指定layout
+        /// </summary>
+        /// <param name="mapName"></param>
+        /// <param name="utpMap"></param>
+        private void OpenLayoutEvent(string mapLayoutName)
+        {
+            TabPage containTapPage = layoutManage.checkLayoutIsInUtp(mapLayoutName, utpMap);
+            //若已存在，不添加,改变激活layout
+            if (containTapPage != null)
+            {
+                layoutManage.SetLayoutControl((MapLayoutControl)containTapPage.Controls[0]);
+            }
+            else containTapPage= layoutManage.AddLayoutAndTab(mapLayoutName,utpMap,workspaceManage.workspace);
+            ChangeAndOpenLayout(mapLayoutName);
+            layoutManage.LayoutControl.MapLayout.ZoomToPaper();
+            utpMap.SelectedTab = containTapPage;
+        }
+        /// <summary>
+        /// 切换为布局界面并打开布局
+        /// </summary>
+        private void ChangeAndOpenLayout(string mapLayoutName)
+        {
+            ChangeToLayout();
+            layoutManage.OpenLayout(mapLayoutName);
+        }
+        /// <summary>
+        /// 切换为布局界面时做的行动
+        /// </summary>
+        private void ChangeToLayout()
+        {
+            EnableSaveButton();
+            this.tabPageLayout.Parent = tabControlHeading;
+            this.viewIndex = 2;
+            CloseTheMap();
+            this.tabPageLayout.Parent = tabControlHeading;
+            tabControlHeading.SelectedTab = tabPageLayout;
+            this.tabPageLayoutItems.Parent = tabControlHeading;
+        }
+
+        private void EnableSaveButton()
+        {
+            ButtonSave.Enabled = true;
+            toolStripButton3.Enabled = true;
+        }
+
+
         /// <summary>
         /// 工作空间树右击选择添加地图或数据
         /// </summary>
@@ -186,7 +271,7 @@ namespace ProjectX.UI
                 {
                     toolStripMenuItemAddData.Text = "添加到当前地图";
                 }
-                else
+                else if (viewIndex == 1)
                 {
                     toolStripMenuItemAddData.Text = "添加到当前场景";
 
@@ -194,6 +279,10 @@ namespace ProjectX.UI
                 ToolStripMenuItem toolStripMenuItemOpenMap = new ToolStripMenuItem("Open Map");
                 toolStripMenuItemOpenMap.Text = "打开地图";
                 toolStripMenuItemOpenMap.Click += new EventHandler(toolStripMenuItemAddDataMap_Click);
+                ToolStripMenuItem toolStripMenuItemOpenLayout = new ToolStripMenuItem("Open Map");
+                toolStripMenuItemOpenLayout.Text = "打开布局";
+                toolStripMenuItemOpenLayout.Click += new EventHandler(toolStripMenuItemAddDataMap_Click);
+
 
                 ContextMenuStrip contextMenuStripWorkspaceTree = new ContextMenuStrip();
                 WorkspaceTreeNodeBase treeNode = e.Node as WorkspaceTreeNodeBase;
@@ -205,20 +294,17 @@ namespace ProjectX.UI
                 {
                     contextMenuStripWorkspaceTree.Items.AddRange(new ToolStripItem[] { toolStripMenuItemOpenMap });
                 }
+                else if(treeNode.NodeType == WorkspaceTreeNodeDataType.LayoutName)
+                {
+                    contextMenuStripWorkspaceTree.Items.AddRange(new ToolStripItem[] { toolStripMenuItemOpenLayout });
+
+                }
                 workspaceControl.WorkspaceTree.NodeContextMenuStrips[treeNode.NodeType] = contextMenuStripWorkspaceTree;
             }
             catch (Exception ex)
             {
                 Trace.WriteLine(ex.Message);
             }
-        }
-        /// <summary>
-        /// 切换地图窗口，更改图层管理器、鹰眼图等关联
-        /// </summary>
-        private void ChangeMap()
-        {
-            initEagleZoomEvent();
-            InitiAttributeMange();
         }
         /// <summary>
         /// LayersTree自定义Delete按键操作

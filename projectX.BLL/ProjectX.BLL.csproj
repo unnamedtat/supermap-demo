@@ -34,11 +34,23 @@
     <Reference Include="SuperMap.Data">
       <HintPath>..\..\..\..\Program Files (x86)\supermap-iobjectsdotnet-11.0.0-21114-95737-all\Bin_x64\SuperMap.Data.dll</HintPath>
     </Reference>
+    <Reference Include="SuperMap.Layout">
+      <HintPath>..\..\..\..\Program Files (x86)\supermap-iobjectsdotnet-11.0.0-21114-95737-all\Bin_x64\SuperMap.Layout.dll</HintPath>
+    </Reference>
     <Reference Include="SuperMap.Mapping">
       <HintPath>..\..\..\..\Program Files (x86)\supermap-iobjectsdotnet-11.0.0-21114-95737-all\Bin_x64\SuperMap.Mapping.dll</HintPath>
     </Reference>
+    <Reference Include="SuperMap.UI.Controls">
+      <HintPath>..\..\..\..\Program Files (x86)\supermap-iobjectsdotnet-11.0.0-21114-95737-all\Bin_x64\SuperMap.UI.Controls.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Primitives.4.3.0\lib\net45\System.Drawing.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,7 +60,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Layout\ElementExcel.cs" />
     <Compile Include="IWorkspaceManage.cs" />
+    <Compile Include="Layout\LayoutElemnt.cs" />
+    <Compile Include="Layout\LayoutManage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkspaceManage.cs" />
   </ItemGroup>
@@ -61,6 +76,38 @@
       <Project>{f0b7ab49-c4e2-4021-8f08-e60dfb0b73c5}</Project>
       <Name>ProjectX.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
