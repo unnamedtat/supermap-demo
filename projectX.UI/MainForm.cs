@@ -15,7 +15,7 @@ namespace ProjectX.UI
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            InitAllControls(splitContainerLR.Panel2, splitContainerdata.Panel2, splitContainerdata.Panel1, splitContainerHawkeye.Panel1, splitContainerHawkeye.Panel2);
+            InitAllControls(mappanel, splitContainerdata.Panel2, splitContainerdata.Panel1, splitContainerHawkeye.Panel1, splitContainerHawkeye.Panel2);
             Tittle_Load();
         }
 

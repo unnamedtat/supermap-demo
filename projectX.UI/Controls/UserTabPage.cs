@@ -1,13 +1,4 @@
-﻿using SuperMap.Data;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace ProjectX.UI.Controls
@@ -28,6 +19,7 @@ namespace ProjectX.UI.Controls
             this.SizeMode = TabSizeMode.Fixed;
             this.MouseDown += UserTabPage_MouseDown;
             this.Dock = DockStyle.Fill;
+            this.ItemSize =new Size(160,35);
         }
 
         /// <summary>
@@ -62,26 +54,28 @@ namespace ProjectX.UI.Controls
             Color recColor = e.State == DrawItemState.Selected ? Color.Red : Color.FromArgb(255, 125, 125);
             //画一个矩形框
             Rectangle closeButton = new Rectangle(e.Bounds.Right - 20, e.Bounds.Top + 7, 15, 15);
-            using (Pen penDrawRec=new Pen(recColor))
+            using (Pen penDrawRec = new Pen(recColor))
             {
                 e.Graphics.DrawRectangle(penDrawRec, closeButton);
             }
             //填充矩形框
-            using (Brush b=new SolidBrush(recColor))
+            using (Brush b = new SolidBrush(recColor))
             {
                 e.Graphics.FillRectangle(b, closeButton);
             }
             //画关闭符号
-            using (Pen penDrawLine=new Pen(Color.White))
+            using (Pen penDrawLine = new Pen(Color.White))
             {
                 Point p1 = new Point(closeButton.X + 3, closeButton.Y + 3);
-                Point p2 = new Point(closeButton.X + closeButton.Width - 3, closeButton.Y + closeButton.Height - 3) ;
+                Point p2 = new Point(closeButton.X + closeButton.Width - 3, closeButton.Y + closeButton.Height - 3);
                 e.Graphics.DrawLine(penDrawLine, p1, p2);
                 Point p3 = new Point(closeButton.X + 3, closeButton.Y + closeButton.Height - 3);
                 Point p4 = new Point(closeButton.X + closeButton.Width - 3, closeButton.Y + 3);
                 e.Graphics.DrawLine(penDrawLine, p3, p4);
             }
-            e.Graphics.DrawString(this.TabPages[e.Index].Text, e.Font, Brushes.Black, e.Bounds.Left + 12, e.Bounds.Top + 4);
+            SizeF Fontsize = e.Graphics.MeasureString(this.TabPages[e.Index].Text, e.Font);
+            string ShowText = Fontsize.Width >= 120 ? this.TabPages[e.Index].Text.Substring(0, 6) + "..." : this.TabPages[e.Index].Text;
+            e.Graphics.DrawString(ShowText, e.Font, Brushes.Black, e.Bounds.Left + 12, e.Bounds.Top + 4);
             e.DrawFocusRectangle();
         }
     }

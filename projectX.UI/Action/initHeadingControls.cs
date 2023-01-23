@@ -3,19 +3,20 @@ using ProjectX.BLL;
 using ProjectX.UI.Controls;
 using System;
 using System.Windows.Forms;
+using SuperMap.Layout;
+using SuperMap.UI;
 
 namespace ProjectX.UI
 {
     public partial class MainForm
     {
         public event Action<string> mapModeChange;
-        Delegate[] buttonDelegate;
         /// <summary>
         /// 设置按钮
         /// </summary>
         public void initbtn()
         {
-            foreach (ToolStripButton button in this.toolStripTop.Items)
+            foreach (ToolStripItem button in this.toolStripTop.Items)
             {
                 switch (button.Tag.ToString())
                 {
@@ -26,31 +27,17 @@ namespace ProjectX.UI
                     case "12":
                         button.Click += TittleButton_Click;
                         break;
+                    case "13":break;
                     default: button.Click += toolStripBtn_Click;break;
                 }
 
             }
             this.ButtonOpenWorkspace.Click += OpenFilebtnOnclick;
             this.ButtonAddMap.Click += ButtonAddMap_Click;
+            this.ButtonAddLayout.Click += ButtonAddMap_Click;
             this.ButtonAddData.Click += ButtonAddData_Click;
             initWorkspaceManageForm();
-            //int buttonNum = 5;
-            ////初始化tabpage1的compositebutton
-            //CompositeButton[] compositeButtons = new CompositeButton[buttonNum];
-            //string[] cpbtnTEXT = { "打开工作空间", "打开数据库型工作空间", "打开数据源", "新建地图", "数据导入" };
-            ////依次绑定事件点击方法,只绑定了一个
-            //Action<object, System.EventArgs> action = OpenFilebtnOnclick;
-            //buttonDelegate = action.GetInvocationList();
-            //for (int i = 0; i < buttonNum; i++)
-            //{
-            //    compositeButtons[i] = new CompositeButton();
-            //    compositeButtons[i].ButtonText = cpbtnTEXT[i];
-            //    compositeButtons[i].Tag = i + 1;
-            //    compositeButtons[i].Click += ButtonOnclick;
-            //    this.headingLayoutPanel1.Controls.Add(compositeButtons[i]);
-            //}
         }
-
         private void TittleButton_Click(object sender, EventArgs e)
         {
             ToolStripButton button = (ToolStripButton)sender;
@@ -66,45 +53,46 @@ namespace ProjectX.UI
                 case "12":this.Close();break;
             }
         }
-
         private void ButtonAddData_Click(object sender, EventArgs e)
         {
             AddDataset addDataset = new AddDataset(workspaceManage.workspace);
             addDataset.Show();
         }
-
         private void ButtonAddMap_Click(object sender, EventArgs e)
         {
-            OpenMap openMap = new OpenMap(workspaceManage);
+            OpenMap openMap;
+            ImageButton imageButton = (ImageButton)sender;
+            if(imageButton.Name== "ButtonAddMap")
+            {
+                openMap = new OpenMap(workspaceManage, ProjectX.UI.Forms.OpenMap.FormType.OpenMapForm);
+                openMap.OpenEvent += OpenForm_OpenMapEvent;
+                openMap.CreateEvent += OpenForm_CreateMapEvent;
+            }
+            else
+            {
+                openMap = new OpenMap(workspaceManage, ProjectX.UI.Forms.OpenMap.FormType.OpenLayoutForm);
+                openMap.OpenEvent += OpenForm_OpenLayoutEvent;
+                openMap.CreateEvent += OpenForm_CreateLayoutEvent;
+            }
             openMap.Show();
-            openMap.OpenMapEvent += OpenMap_OpenMapEvent;
-            openMap.CreateMapEvent += OpenMap_CreateMapEvent;
         }
-
-        private void OpenMap_CreateMapEvent(object sender, string e)
+        private void OpenForm_CreateLayoutEvent(object sender, string e)
+        {
+            workspaceManage.CreatLayout(e);
+            OpenLayout(e);
+        }
+        private void OpenForm_OpenLayoutEvent(object sender, string e)
+        {
+            OpenLayout(e);
+        }
+        private void OpenForm_CreateMapEvent(object sender, string e)
         {
             workspaceManage.CreatMap(e);
+            OpenMap(e);
         }
-
-        private void OpenMap_OpenMapEvent(object sender, string e)
+        private void OpenForm_OpenMapEvent(object sender, string e)
         {
-            OpenMap(e,utpMap);
-        }
-
-
-        /// <summary>
-        /// 按钮的点击事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ButtonOnclick(object sender, System.EventArgs e)
-        {
-            CompositeButton button = (CompositeButton)sender;
-            /*根据button.Tag中序号选择委托列表数组中相应方法*/
-            Action<object, System.EventArgs> method = (Action<object, System.EventArgs>)buttonDelegate[Convert.ToInt16(button.Tag) - 1];
-
-            /*执行*/
-            method(sender, e);
+            OpenMap(e);
         }
         /// <summary>
         /// 点击打开工作空间
@@ -125,7 +113,42 @@ namespace ProjectX.UI
             ToolStripButton button = (ToolStripButton)sender;
             mapModeChange?.Invoke(button.Tag.ToString());
         }
+        #region 布局按钮
+        private void InitLayoutButtonClick()
+        {
+            iButtonLayoutSelect.Click += IButtonLayout_Click;
+            iButtonZoomIn.Click += IButtonLayout_Click;
+            iButtonZoomOut.Click += IButtonLayout_Click;
+            iButtonZoomFree.Click += IButtonLayout_Click;
+            iButtonPan.Click += IButtonLayout_Click;
+            iButtonViewEntire.Click += IButtonLayout_Click;
+            iButtonOpenLayoutSetting.Click += IButtonOpenLayoutSetting_Click;
+        }
 
+        private void IButtonOpenLayoutSetting_Click(object sender, EventArgs e)
+        {
+            LayoutSettingDialog.ShowDialog(activeMapLayoutControl.MapLayout, "布局设置："+activeMapLayoutControl.MapLayout.Name);
+        }
+        /// <summary>
+        /// 布局的普通操作
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void IButtonLayout_Click(object sender, EventArgs e)
+        {
+            ImageButton imageButton = (ImageButton)sender;
+            switch (imageButton.Tag)
+            {
+                case "0":activeMapLayoutControl.LayoutAction = SuperMap.UI.Action.Select2;break;
+                case "1": activeMapLayoutControl.LayoutAction = SuperMap.UI.Action.ZoomIn; break;
+                case "2": activeMapLayoutControl.LayoutAction = SuperMap.UI.Action.ZoomOut; break;
+                case "3": activeMapLayoutControl.LayoutAction = SuperMap.UI.Action.ZoomFree; break;
+                case "4": activeMapLayoutControl.LayoutAction = SuperMap.UI.Action.Pan; break;
+                case "5": activeMapLayoutControl.MapLayout.ZoomToPaper(); break;
+                default:
+                    break;
+            }
+        }
+        #endregion
     }
-
 }

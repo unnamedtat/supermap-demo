@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ProjectX.UI.Controls
@@ -30,11 +23,12 @@ namespace ProjectX.UI.Controls
                 this.buttontype = value;
             }
         }
-        public enum ButtonType {
+        public enum ButtonType
+        {
             [Description("正常")]
-            normal=0,
+            normal = 0,
             [Description("小")]
-            small=1,
+            small = 1,
         }
         /// <summary>
         /// 设置图片

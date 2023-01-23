@@ -29,9 +29,10 @@ namespace ProjectX.UI
 
         private void Tittle_Load()
         {
-            MouseDown += MyMouseMove;
+            //MouseDown += MyMouseMove;
             this.toolStripTop.MouseDown += MyMouseMove;
             this.splitContainerUD.Panel1.MouseDown += MyMouseMove;
+            this.labelTitle.MouseDown += MyMouseMove;
         }
         private void MyMouseMove(object sender, MouseEventArgs e)
         {
